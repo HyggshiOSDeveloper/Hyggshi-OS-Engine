@@ -1,4 +1,4 @@
--- Please Use LocalScript type
+-- Please Use LocalScript type on StarterGui
 
 local DesktopGui = Instance.new('ScreenGui')
 DesktopGui.Name = 'DesktopGui'
