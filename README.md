@@ -6,6 +6,8 @@
 [![Downloads](https://img.shields.io/github/downloads/HyggshiOSDeveloper/Hyggshi-OS-Engine/total.svg)](https://github.com/HyggshiOSDeveloper/Hyggshi-OS-Engine/releases)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](#)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Made with Lua](https://img.shields.io/badge/Made%20with-Lua-2C2D72?logo=lua&logoColor=white)](https://www.lua.org/)
+[![Made with Luau](https://img.shields.io/badge/Made%20with-Luau-2C2D72?logo=lua&logoColor=white)](https://luau.org/)
 
 **Hyggshi OS Engine** is a powerful framework built in **Roblox Studio** that lets developers create fully interactive operating system simulations inside Roblox games.
 It provides flexible modules, UI tools, and system utilities to make your own in-game OS come alive.
