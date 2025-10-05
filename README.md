@@ -1,5 +1,7 @@
 # Hyggshi OS Engine
 
+![Hyggshi OS Engine](assets/HyggshiOSEngine.png)
+
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/HyggshiOSDeveloper/Hyggshi-OS-Engine/releases)
 [![Downloads](https://img.shields.io/github/downloads/HyggshiOSDeveloper/Hyggshi-OS-Engine/total.svg)](https://github.com/HyggshiOSDeveloper/Hyggshi-OS-Engine/releases)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](#)
