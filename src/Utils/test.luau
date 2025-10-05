@@ -1,3 +1,5 @@
+-- Please Use Classic Script Style
+
 local Logger = require(game.ServerScriptService.Utils.ErrorLogger)
 
 Logger:LogCode(0x010001, { extra = "Hyggshi kernel.lua missing", showStack = false })
