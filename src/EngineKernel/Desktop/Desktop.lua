@@ -1,21 +1,17 @@
-local Desktop = {}
+-- Please Use LocalScript type
 
-function Desktop:Init()
-	local player = game.Players.LocalPlayer
-	local playerGui = player:WaitForChild("PlayerGui")
+local DesktopGui = Instance.new('ScreenGui')
+DesktopGui.Name = 'DesktopGui'
+DesktopGui.Enabled = true
+DesktopGui.IgnoreGuiInset = true
+DesktopGui.Parent = game.Players.LocalPlayer:WaitForChild('PlayerGui')
 
-	local gui = Instance.new("ScreenGui")
-	gui.Name = "DesktopGui"
-	gui.IgnoreGuiInset = true
-	gui.ResetOnSpawn = false
-	gui.Parent = playerGui
-
-	local background = Instance.new("ImageLabel")
-	background.Name = "ImageBackground"
-	background.Size = UDim2.new(1, 0, 1, 0)
-	background.Image = "rbxassetid://129548761614383"
-	background.ZIndex = 1
-	background.Parent = gui
-end
-
-return Desktop
+local ImageBackground = Instance.new('ImageLabel')
+ImageBackground.Name = 'ImageBackground'
+ImageBackground.Size = UDim2.new(1, 0, 1, 0)
+ImageBackground.Position = UDim2.new(-0.001, 0, 0, 0)
+ImageBackground.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageBackground.Image = "rbxassetid://129548761614383"
+ImageBackground.Visible = true
+ImageBackground.ZIndex = 1
+ImageBackground.Parent = DesktopGui
