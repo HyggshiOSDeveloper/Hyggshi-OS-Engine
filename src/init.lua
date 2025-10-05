@@ -1,4 +1,6 @@
 -- init.lua
+-- Please Use ModuleScript type
+
 local Engine = {}
 
 local Boot = require(script.Core.Boot)
