@@ -1,3 +1,5 @@
+-- Please Use ModuleScript type
+
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Kernel = ReplicatedStorage:WaitForChild("EngineKernel")
 
