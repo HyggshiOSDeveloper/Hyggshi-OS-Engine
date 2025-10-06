@@ -1,3 +1,5 @@
+-- Please Use ModuleScript type
+
 local Desktop = {}
 
 function Desktop:Init()
