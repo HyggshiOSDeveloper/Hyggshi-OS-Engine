@@ -1,0 +1,29 @@
+{
+  "name": "Hyggshi OS Engine",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "Shared": {
+        "$path": "src/EngineKernel"
+      }
+    },
+
+    "ServerScriptService": {
+      "Server": {
+        "$path": "src/ReplicatedStorage"
+      }
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Client": {
+          "$path": "src/StarterPlayer/StarterPlayerScripts"
+        }
+      }
+    },
+    "Utils": {
+      "$path": "src/Utils"
+    }
+  }
+}
