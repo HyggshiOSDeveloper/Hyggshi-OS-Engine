@@ -58,7 +58,7 @@ function AppWindow:Init(title, appName)
 	local taskButton = Instance.new("ImageButton")
 	taskButton.Name = appName or "TaskButton_" .. title
 	taskButton.Size = UDim2.new(0.02, 0, 0.974, 0)
-	taskButton.Position = UDim2.new(0.05, 0, 0.026, 0)
+	taskButton.Position = UDim2.new(0.125, 0, 0.026, 0)
 	taskButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
 	taskButton.Image = "rbxassetid://135303389500761"
 	taskButton.BorderSizePixel = 0
