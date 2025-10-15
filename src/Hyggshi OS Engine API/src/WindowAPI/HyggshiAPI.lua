@@ -14,11 +14,11 @@ function HyggshiAPI.CreateWindow(title, width, height, icon)
 	Frame.Position = UDim2.new(0.5, -width / 2, 0.5, -height / 2)
 	Frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 	Frame.Active = true
-	Frame.Draggable = false -- dùng API kéo riêng
+	Frame.Draggable = false
 	Frame.Parent = ScreenGui
 
 	Icon.Name = "Icon"
-	Icon.Image = icon or "rbxassetid://0" -- icon mặc định nếu không có
+	Icon.Image = icon or "rbxassetid://0"
 	Icon.Position = UDim2.new(0, 4, 0, 2)
 	Icon.Size = UDim2.new(0, 20, 0, 20)
 	Icon.BackgroundTransparency = 1
