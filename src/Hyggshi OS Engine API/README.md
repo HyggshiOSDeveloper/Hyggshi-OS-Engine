@@ -1,6 +1,6 @@
 # Hyggshi OS Engine — API (English)
 
-![Hyggshi OS Engine API](assets/HyggshiOSEngineAPI.png)
+![Hyggshi OS Engine API](https://github.com/HyggshiOSDeveloper/Hyggshi-OS-Engine/blob/main/assets/HyggshiOSEngineAPI.png)
 
 This folder contains the client-facing API for the Hyggshi OS Engine. It exposes utility functions and window-management helpers that client scripts can require to create, open, move, and control windows and UI elements provided by the engine.
 
