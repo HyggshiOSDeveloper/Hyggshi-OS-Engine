@@ -1,79 +1,92 @@
--- Utils/ErrorLogger.lua
+-- 🧠 ErrorLogger.lua
+
 local ErrorLogger = {}
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer or Players.PlayerAdded:Wait()
+local playerGui = player:WaitForChild("PlayerGui")
 
--- Registry of codes: codeNumber -> {name=..., message=..., level=...}
-local Codes = {
-    -- Boot (0x01xxxx)
-    [0x010001] = { name = "BOOT_MISSING_MODULE", message = "Required boot module not found.", level = "ERROR" },
-    [0x010002] = { name = "BOOT_CONFIG_INVALID", message = "Boot config malformed.", level = "FATAL" },
+local screenGui
 
-    -- UI (0x02xxxx)
-    [0x020001] = { name = "UI_WINDOW_FAIL", message = "Failed to create UI window.", level = "ERROR" },
-    [0x020002] = { name = "UI_ASSET_MISSING", message = "UI asset missing.", level = "WARN" },
+-- Blue Screen
+local function createBlueScreen(errorText)
+	if screenGui then screenGui:Destroy() end
 
-    -- App (0x03xxxx)
-    [0x03000A] = { name = "APP_TIMEOUT", message = "App did not respond in time.", level = "WARN" },
-}
+	screenGui = Instance.new("ScreenGui")
+	screenGui.Name = "BlueScreenOfDeath"
+	screenGui.ResetOnSpawn = false
+	screenGui.IgnoreGuiInset = true
+	screenGui.DisplayOrder = 999999
+	screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 
--- Helper: format number to 0xHHHHHH
-local function fmtHex(n)
-    return ("0x%06X"):format(n)
+	local bg = Instance.new("Frame")
+	bg.Size = UDim2.new(1, 0, 1, 0)
+	bg.BackgroundColor3 = Color3.fromRGB(0, 60, 180)
+	bg.Parent = screenGui
+
+	local label = Instance.new("TextLabel")
+	label.Size = UDim2.new(1, -80, 1, -80)
+	label.Position = UDim2.new(0, 40, 0, 40)
+	label.BackgroundTransparency = 1
+	label.TextColor3 = Color3.fromRGB(255, 255, 255)
+	label.Font = Enum.Font.SourceSansBold
+	label.TextScaled = true
+	label.TextWrapped = true
+	label.Text = "Oops! Hyggshi OS failed to initialize interface.\n\n" ..
+		"Error details:\n" .. tostring(errorText) .. "\n\n" ..
+		"Please check your EngineKernel structure or GUI script again."
+
+	label.Parent = bg
+	screenGui.Parent = playerGui
 end
 
--- Basic output function (can replace print with GUI writing or DataStore)
-local function output(level, code, name, message, details)
-    local prefix = string.format("[%s] %s %s - %s", level, fmtHex(code), name or "-", message or "-")
-    if details then
-        prefix = prefix .. " | " .. tostring(details)
-    end
-    if level == "WARN" then
-        warn(prefix)
-    elseif level == "ERROR" or level == "FATAL" then
-        -- error will stop the script if thrown; we only throw for FATAL/ERROR if desired
-        -- to allow logging without stopping, use print/warn instead
-        print(prefix) -- keep printed; next line can throw if you want
-    else
-        print(prefix)
-    end
+-- 🧩 Test GUI modules
+function ErrorLogger:ScanScripts()
+	local ReplicatedStorage = game:GetService("ReplicatedStorage")
+	local Kernel = ReplicatedStorage:FindFirstChild("EngineKernel")
+
+	if not Kernel then
+		createBlueScreen("EngineKernel folder not found in ReplicatedStorage.")
+		return
+	end
+
+	local modules = {
+		"Desktop.Desktop",
+		"Taskbar.Taskbar",
+		"GUIManager",
+		"WindowAPI.HyggshiAPI",
+		
+	}
+
+	local errorFound = false
+	local errorDetails = {}
+
+	for _, moduleName in ipairs(modules) do
+		local ok, result = pcall(function()
+			local path = Kernel
+			for part in string.gmatch(moduleName, "[^%.]+") do
+				path = path:FindFirstChild(part)
+				if not path then
+					error("Missing module: " .. moduleName)
+				end
+			end
+			require(path)
+		end)
+
+		if not ok then
+			errorFound = true
+			table.insert(errorDetails, result)
+		end
+	end
+
+	if errorFound then
+		createBlueScreen(table.concat(errorDetails, "\n\n"))
+	else
+
+		if screenGui then
+			screenGui:Destroy()
+			screenGui = nil
+		end
+	end
 end
-
--- Public: register new codes programmatically (optional)
-function ErrorLogger:RegisterCode(codeNumber, name, message, level)
-    Codes[codeNumber] = { name = name, message = message, level = level or "ERROR" }
-end
-
--- Public: get code info
-function ErrorLogger:GetCodeInfo(codeNumber)
-    return Codes[codeNumber]
-end
-
--- Public: log by code (will format, output and optionally throw)
--- options: {throw = true/false, extra = "detail text", showStack = true/false}
-function ErrorLogger:LogCode(codeNumber, options)
-    options = options or {}
-    local info = Codes[codeNumber]
-    local name = info and info.name or "UNKNOWN_CODE"
-    local message = info and info.message or "Unknown error code."
-    local level = info and info.level or "ERROR"
-
-    output(level, codeNumber, name, message, options.extra)
-
-    -- show stack if requested or level severe
-    if options.showStack or level == "FATAL" then
-        -- capture stack trace
-        local trace = debug.traceback("", 2)
-        print("Stack Trace:\n" .. trace)
-    end
-
-    -- optionally throw error for ERROR/FATAL if options.throw == true
-    if options.throw and (level == "ERROR" or level == "FATAL") then
-        error(string.format("[%s] %s - %s", fmtHex(codeNumber), name, message), 2)
-    end
-end
-
--- Convenience wrappers
-function ErrorLogger:Info(msg) print("[INFO] " .. tostring(msg)) end
-function ErrorLogger:Warn(msg) warn("[WARN] " .. tostring(msg)) end
-function ErrorLogger:Error(msg) error("[ERROR] " .. tostring(msg), 2) end
 
 return ErrorLogger
