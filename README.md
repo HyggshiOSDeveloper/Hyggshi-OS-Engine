@@ -13,6 +13,13 @@
 It provides flexible modules, UI tools, and system utilities to make your own in-game OS come alive.
 
 ---
+## Status
+In Progress
+This repository contains the actual source code for the Hyggshi OS Engine.
+Modules are being developed and documented over time.
+This is not reference code or sample code — it is the actual engine framework.
+
+---
 
 ## Features
 
