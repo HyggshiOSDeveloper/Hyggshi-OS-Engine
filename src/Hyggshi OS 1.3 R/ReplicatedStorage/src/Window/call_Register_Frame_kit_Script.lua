@@ -4,7 +4,7 @@ local WindowManager = require(ReplicatedStorage:WaitForChild("Hyggshi_OS_Engine"
 	:WaitForChild("Window")
 	:WaitForChild("WindowManager"))
 
--- Đăng ký toàn bộ Frame trong ScreenGui Desktop
+-- Register all frames in the Desktop ScreenGui.
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 local App_Screen_Gui = playerGui:WaitForChild("App_Screen_Gui")

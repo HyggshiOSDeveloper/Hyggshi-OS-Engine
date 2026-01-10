@@ -4,12 +4,12 @@ local WindowManager = require(ReplicatedStorage:WaitForChild("Hyggshi_OS_Engine"
 	:WaitForChild("Window")
 	:WaitForChild("WindowManager2"))
 
--- Lấy GUI người chơi
+-- Get the player GUI
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
--- Lấy UI của 2 app
+-- Get the UI of the two apps.
 local mane = playerGui:WaitForChild("mane")
 
--- Đăng ký các ScreenGui (dùng DisplayOrder)
+-- Register ScreenGuis (using DisplayOrder)
 WindowManager.RegisterGUI(mane)
